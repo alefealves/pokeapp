@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'tabs',
+    redirectTo: 'landing',
     pathMatch: 'full',
   },
   {
@@ -13,5 +13,9 @@ export const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.routes').then((m) => m.routes),//canActivate: [AuthGuard]
+  },
+  {
+    path: 'landing',
+    loadComponent: () => import('./auth/landing/landing.page').then( m => m.LandingPage)
   },
 ];

@@ -1,0 +1,27 @@
+.background {
+  background-image: url('../../../assets/images/landing.jpg'); 
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .content {
+    text-align: center;
+
+    .title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: white;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    ion-button {
+      font-size: 1.3rem;
+      --background: #ffcc00;
+      --background-activated: #ffaa00;
+      --background-focused: #ffbb00;
+    }
+  }
+}

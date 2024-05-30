@@ -1,0 +1,9 @@
+<ion-content fullscreen >
+  <div class="background">
+    <div class="content" click="stopSound()">
+      <h1 class="title">PokeApp</h1>
+      <ion-button (click)="stopSound()" [routerLink]="['/login']">Login</ion-button>
+    </div>
+  </div>
+  <audio #audioPlayer src="../../../assets/sounds/landing.mp3" autoplay></audio>
+</ion-content>
