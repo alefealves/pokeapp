@@ -6,6 +6,8 @@ import { AlertController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { heart, heartOutline } from 'ionicons/icons';
 import { catchError, finalize } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { 
   IonHeader,
   IonTitle,
@@ -32,8 +34,6 @@ import {
   IonProgressBar,
   IonMenu,
   } from '@ionic/angular/standalone';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -77,6 +77,7 @@ export class HomePage implements OnInit {
   public pokemonsList: Pokemon[] = [];
   public pokemonsListAll: Pokemon[] = [];
   public searchPokemon: Pokemon[] = []; 
+  results = [...this.pokemonsListAll];
 
   private offset = 0;
   private limit = 20;
@@ -84,7 +85,6 @@ export class HomePage implements OnInit {
   isLastPage = false;
   classicMode: boolean = true;
   isSearching = false;
-  results = [...this.pokemonsListAll];
   public error = null;
 
   constructor() {
@@ -96,7 +96,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.loadPokemons();
-    //this.loadAllPokemons();
+    this.loadAllPokemons();
   }
 
   async loadPokemons(event?: InfiniteScrollCustomEvent) {
@@ -160,7 +160,6 @@ export class HomePage implements OnInit {
       this.searchPokemon = this.pokemonsListAll.filter(pokemon => pokemon.name.toLowerCase() === lowerCaseName);
     }
     this.isLoading = false;
-
   }
 
   selectPokemon(name: string) {
