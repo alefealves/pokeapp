@@ -6,7 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { heart, heartOutline } from 'ionicons/icons';
 import { catchError, finalize } from 'rxjs';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { 
   IonHeader,
@@ -70,6 +70,7 @@ import {
 })
 export class HomePage implements OnInit {
 
+  private router = inject(Router);
   private pokemonService = inject(PokemonService);
   private alertController = inject(AlertController);
 

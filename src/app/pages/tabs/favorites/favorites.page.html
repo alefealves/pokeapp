@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Favorites</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" id="main-content">
+  <div class="container">
+    <ion-row *ngIf="isFavoritesPokemons" class="classicMode">
+      <ion-col size="12">
+        <ion-toggle
+          color="primary"
+          checked="classicMode"
+          (ionChange)="classicMode = !classicMode"
+        >
+          {{ classicMode ? 'Classic' : 'Gif' }}
+        </ion-toggle>
+      </ion-col>
+    </ion-row>
+
+    <img class="bg__pokeball" src="../../../assets/images/pokeball-background.png" alt="pokeball">
+
+    <ion-card *ngIf="!isFavoritesPokemons">
+      <img alt="pikachu sad" src="../../../assets/images/pikachu-sad.jpg" />
+      <ion-card-header>
+        <ion-card-title>No favorite pokemon found</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        You haven't marked any pokemon as favorite yet
+      </ion-card-content>
+    </ion-card>
+
+    <ion-row *ngIf="isFavoritesPokemons" class="pokemon__list">
+      <ion-col
+        size="12"
+        size-md="6"
+        size-lg="4"
+        size-xl="4"
+        *ngFor="let pokemon of pokemonsFavorites"
+        button [routerLink]="['/details', pokemon.id]"
+      >
+        <ion-card class="card {{ 'bg-color-' + getPrincipalType(pokemon.types) + '-light' }}">
+          <img class="card__bg" src="../../../assets/images/pokeball-background.png" alt="pokeball-card">
+          <ion-card-content class="card__info">
+            <h2>#{{ pokemon.id }} {{ pokemon.name }}
+              <ion-icon [name]="isFavorite(pokemon.id) ? 'heart' : 'heart-outline'"
+              (click)="AlertConfirmFavorite(pokemon); $event.stopPropagation()"></ion-icon>
+            </h2>
+            <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" *ngFor="let type of pokemon.types">{{type.type.name}}</span>
+          </ion-card-content>
+          
+          <div class="card__img">
+            <img *ngIf="classicMode" [src]="pokemon.image" [alt]="pokemon.name">
+            <img *ngIf="!classicMode" [src]="pokemon.gif" [alt]="pokemon.name">
+          </div>
+          
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </div>
+</ion-content>

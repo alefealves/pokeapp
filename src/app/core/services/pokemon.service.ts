@@ -101,4 +101,8 @@ export class PokemonService {
       this.pokemonsFavorites.push(pokemon);
     }
   }
+
+  getFavorites(): Pokemon[] {
+    return this.pokemonsFavorites;
+  }
 }
