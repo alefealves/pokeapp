@@ -138,5 +138,87 @@ export class HomePage implements OnInit {
   getPrincipalType(list: any[]) {
     return list.filter(x => x.slot === 1)[0]?.type.name;
   }
+
+  async loadAllPokemons() {
+    this.pokemonService
+      .getAllPokemons()
+      .subscribe({
+        next: (res: Pokemon[]) => {
+          this.pokemonsListAll = res;
+        },
+      });
+  }
+
+  onSearchPokemon() {
+    const searchTerm = this.search.value?.trim().toLowerCase();
+    this.isLoading = true;
+    this.isSearching = true;
+    if (typeof searchTerm === 'number') {
+      this.searchPokemon = this.pokemonsListAll.filter(p => p.id === searchTerm);
+    } else if (typeof searchTerm === 'string') {
+      const lowerCaseName = searchTerm.toLowerCase();
+      this.searchPokemon = this.pokemonsListAll.filter(pokemon => pokemon.name.toLowerCase() === lowerCaseName);
+    }
+    this.isLoading = false;
+
+  }
+
+  selectPokemon(name: string) {
+    this.search.setValue(name);
+    this.onSearchPokemon();
+  }
+
+  isFavorite(id: any): boolean {
+    return this.pokemonService.isFavorite(id);
+  }
+
+  handleInput(event: any) {
+    const query = event.target.value.trim().toLowerCase();
+    if (query.length === 0) {
+      this.isSearching = false;
+      return;
+    }
+    this.isSearching = true;
+    this.isLoading = true;
+    this.results = this.pokemonsListAll.filter((p) => {
+      return p.name.toLowerCase().includes(query) || p.id.toString().includes(query);
+    });
+  }
+
+  onCancel(event: any) {
+    this.isSearching = false;
+  }
+
+  async AlertConfirmFavorite(pokemon: Pokemon) {
+    let message = '';
+    if (this.isFavorite(pokemon.id)) {
+      message = 'Are you right in removing '+pokemon.name+' from favorite?';
+    } else {
+      message = 'Are you right in marking '+pokemon.name+' as favorite?';
+    }
+
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: message,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            this.pokemonService.toggleFavorite(pokemon);
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   
 }

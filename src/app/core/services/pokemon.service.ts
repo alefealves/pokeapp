@@ -63,5 +63,17 @@ export class PokemonService {
         }),
         catchError(error => throwError(error)));
   }
+
+  isFavorite(id: number): boolean {
+    return (this.pokemonsFavorites.filter(x => x.id === id).length > 0);
+  }
+
+  toggleFavorite(pokemon: Pokemon): void {
+    if (this.pokemonsFavorites.filter(x => x.id === pokemon.id).length > 0) {
+      this.pokemonsFavorites.splice(this.pokemonsFavorites.indexOf(pokemon), 1);
+    } else {
+      this.pokemonsFavorites.push(pokemon);
+    }
+  }
   
 }

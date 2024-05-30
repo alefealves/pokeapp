@@ -1,16 +1,39 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Pokemons
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" id="main-content">
   <div class="container">
-    
+    <ion-row class="header">
+      <ion-col size="12" size-lg="8">
+        <ion-searchbar #search show-cancel-button="focus" 
+                       [debounce]="1000" 
+                       (ionInput)="handleInput($event)" 
+                       (ionCancel)="onCancel($event)"
+                       (ionClear)="onCancel($event)"
+                       placeholder="Charizard or 10"></ion-searchbar>
+        <ion-list *ngIf="isLoading" >
+          <ion-item *ngFor="let pokemon of results" (click)="selectPokemon(pokemon.name)">
+            <ion-label>{{ pokemon.name }} ({{ pokemon.id }})</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col size="12">
+        <ion-toggle
+          color="primary"
+          checked="classicMode"
+          (ionChange)="classicMode = !classicMode"
+        >
+          {{ classicMode ? 'Classic' : 'Gif' }}
+        </ion-toggle>
+      </ion-col>
+    </ion-row>
 
-    <img class="bg__pokeball" src="../../../assets/images/pokeball-background.png" alt="pokeball">
+    <img class="bg__pokeball" src="../../../../assets/images/pokeball-background.png" alt="pokeball">
 
     <ion-row class="justify-content-center" *ngIf="isLoading">
       <ion-col size="4">
@@ -29,10 +52,12 @@
         button [routerLink]="['/details', pokemon.id]"
       >
         <ion-card class="card {{ 'bg-color-' + getPrincipalType(pokemon.types) + '-light' }}">
-          <img class="card__bg" src="../../../assets/images/pokeball-background.png" alt="pokeball-card">
+          <img class="card__bg" src="../../../../assets/images/pokeball-background.png" alt="pokeball-card">
           <ion-card-content class="card__info">
-            
-            
+            <h2>#{{ pokemon.id }} {{ pokemon.name }}
+              <ion-icon [name]="isFavorite(pokemon.id) ? 'heart' : 'heart-outline'"
+              (click)="AlertConfirmFavorite(pokemon); $event.stopPropagation()"></ion-icon>
+            </h2>
             <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" *ngFor="let type of pokemon.types">{{type.type.name}}</span>
           </ion-card-content>
           
@@ -56,10 +81,12 @@
         button [routerLink]="['/details', pokemon.id]"
       >
         <ion-card class="card {{ 'bg-color-' + getPrincipalType(pokemon.types) + '-light' }}">
-          <img class="card__bg" src="../../../assets/images/pokeball-background.png" alt="pokeball-card">
+          <img class="card__bg" src="../../../../assets/images/pokeball-background.png" alt="pokeball-card">
           <ion-card-content class="card__info">
-            
-
+            <h2>#{{ pokemon.id }} {{ pokemon.name }}
+              <ion-icon [name]="isFavorite(pokemon.id) ? 'heart' : 'heart-outline'"
+              (click)="AlertConfirmFavorite(pokemon); $event.stopPropagation()"></ion-icon>
+            </h2>
             <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" *ngFor="let type of pokemon.types">{{type.type.name}}</span>
           </ion-card-content>
           
