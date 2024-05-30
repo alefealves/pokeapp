@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title> {{ pokemon()?.name | titlecase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if (pokemon(); as pokemon) {
+
+    <ion-card>
+      <ion-img [style.height.px]="220" [alt]="pokemon?.name" [src]="pokemon?.sprites?.other?.dream_world?.front_default" />
+      <ion-card-content class="card__header">
+        <h2 class="color-white">{{ pokemon.name }}
+          <ion-icon [name]="isFavorite(pokemon.id) ? 'heart' : 'heart-outline'" 
+          (click)="AlertConfirmFavorite(pokemon); $event.stopPropagation()"></ion-icon>
+        </h2>
+        <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" *ngFor="let type of pokemon.types">{{type.type.name}}</span>
+      </ion-card-content>
+    </ion-card>
+
+    
+    
+  } 
+</ion-content>

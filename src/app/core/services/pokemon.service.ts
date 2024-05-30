@@ -76,4 +76,29 @@ export class PokemonService {
     }
   }
   
+  toggleFavoriteDetail(pokemonDetail: PokemonDetail): void {
+    if (this.pokemonsFavorites.filter(x => x.id === pokemonDetail.id).length > 0) {
+      const pokemon: Pokemon = {
+          id: pokemonDetail.id,
+          name: pokemonDetail.name,
+          url: `${this.baseUrl}/${pokemonDetail.id}`,
+          isFavorite: true,
+          image: pokemonDetail.sprites.front_default,
+          gif: pokemonDetail.sprites.other.showdown.front_default,
+          types: pokemonDetail.types
+        };
+      this.pokemonsFavorites.splice(this.pokemonsFavorites.indexOf(pokemon), 1);
+    } else {
+      const pokemon: Pokemon = {
+          id: pokemonDetail.id,
+          name: pokemonDetail.name,
+          url: `${this.baseUrl}/${pokemonDetail.id}`,
+          isFavorite: true,
+          image: pokemonDetail.sprites.front_default,
+          gif: pokemonDetail.sprites.other.showdown.front_default,
+          types: pokemonDetail.types
+        };
+      this.pokemonsFavorites.push(pokemon);
+    }
+  }
 }

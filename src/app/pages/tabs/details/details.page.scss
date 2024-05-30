@@ -1,0 +1,74 @@
+@import '../../../../styles.scss';
+  
+.card__header {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  text-transform: capitalize;
+  h2 {
+    border-radius: 40px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1.8rem;
+
+    
+  }
+  span {
+    border-radius: 40px;
+    text-align: center;
+    margin-top: 3px;
+    width: 45%;
+  }
+}
+
+.card__basestats {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  color: white;
+  text-transform: capitalize;
+  span {
+    border-radius: 40px;
+    text-align: center;
+    margin-top: 5px;
+  }
+}
+
+.card__info {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  text-transform: capitalize;
+  ion-card-subtitle {
+    color: white;
+  }
+}
+
+.loader{
+	background: #f20d49 !important;
+	border-radius:100px;
+	height:20px;
+	p{
+		text-align:center;
+		color:white !important;
+		text-align:center;
+	}
+}
+
+.card__cries {
+  display: flex;
+  align-items: start;
+  flex-direction: row;
+  color: white;
+  text-transform: capitalize;
+  p{
+		text-align:start;
+		color:white !important;
+    margin-top: 3px;
+	}
+  .play-icon {
+    font-size: 25px;
+    color: white;
+    margin-left: 10px;
+  }
+}
+
