@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AnimationController } from '@ionic/angular';
@@ -32,7 +32,8 @@ import {
     IonTabBar,
     IonTabs,
     IonTabButton,
-    ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TabsPage {
 
