@@ -6,15 +6,75 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" id="main-content">
+  <div class="container">
+    
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <img class="bg__pokeball" src="../../../assets/images/pokeball-background.png" alt="pokeball">
+
+    <ion-row class="justify-content-center" *ngIf="isLoading">
+      <ion-col size="4">
+        <span>Loading... please wait!</span>
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!isSearching" class="pokemon__list">
+      <ion-col
+        size="12"
+        size-md="6"
+        size-lg="4"
+        size-xl="4"
+        *ngFor="let pokemon of pokemonsList"
+        button [routerLink]="['/details', pokemon.id]"
+      >
+        <ion-card class="card {{ 'bg-color-' + getPrincipalType(pokemon.types) + '-light' }}">
+          <img class="card__bg" src="../../../assets/images/pokeball-background.png" alt="pokeball-card">
+          <ion-card-content class="card__info">
+            
+            
+            <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" *ngFor="let type of pokemon.types">{{type.type.name}}</span>
+          </ion-card-content>
+          
+          <div class="card__img">
+            <img *ngIf="classicMode" [src]="pokemon.image" [alt]="pokemon.name">
+            <img *ngIf="!classicMode" [src]="pokemon.gif" [alt]="pokemon.name">
+          </div>
+          
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="isSearching" class="pokemon__list">
+      
+      <ion-col
+        size="12"
+        size-md="12"
+        size-lg="4"
+        size-xl="4"
+        *ngFor="let pokemon of searchPokemon"
+        button [routerLink]="['/details', pokemon.id]"
+      >
+        <ion-card class="card {{ 'bg-color-' + getPrincipalType(pokemon.types) + '-light' }}">
+          <img class="card__bg" src="../../../assets/images/pokeball-background.png" alt="pokeball-card">
+          <ion-card-content class="card__info">
+            
+
+            <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" *ngFor="let type of pokemon.types">{{type.type.name}}</span>
+          </ion-card-content>
+          
+          <div class="card__img">
+            <img *ngIf="classicMode" [src]="pokemon.image" [alt]="pokemon.name">
+            <img *ngIf="!classicMode" [src]="pokemon.gif" [alt]="pokemon.name">
+          </div>
+          
+        </ion-card>
+      </ion-col>
+    
+    </ion-row>
   </div>
+
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..." />
+  </ion-infinite-scroll>
 </ion-content>
