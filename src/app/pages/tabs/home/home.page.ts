@@ -86,6 +86,7 @@ export class HomePage implements OnInit {
   classicMode: boolean = true;
   isSearching = false;
   public error = null;
+  public email: any;
 
   constructor() {
     addIcons({
@@ -211,6 +212,33 @@ export class HomePage implements OnInit {
           text: 'Confirm',
           handler: () => {
             this.pokemonService.toggleFavorite(pokemon);
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async AlertConfirmLogout() {
+    let message = 'Are you sure you want to log out?';
+
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: message,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            //this.logout();
             console.log('Confirm Okay');
           }
         }
