@@ -40,6 +40,8 @@ export class AuthfirebaseService {
     return await this.ngFireAuth.createUserWithEmailAndPassword(email, password)
   }
 
+ 
+
   async loginUser(email: string, password: string) {
     const user = await this.ngFireAuth.signInWithEmailAndPassword(email, password);
     if (user) {

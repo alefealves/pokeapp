@@ -35,7 +35,7 @@ import {
 })
 export class ResetPasswordPage implements OnInit {
   ionicForm!: FormGroup;
-  email:any
+
   constructor(private authService:AuthfirebaseService,private toastController: ToastController,private router: Router,
               public formBuilder: FormBuilder) {
     addIcons({
@@ -56,12 +56,28 @@ export class ResetPasswordPage implements OnInit {
     });
   }
 
-  reset(){
+  async reset(){
 
-    this.authService.resetPassword(this.email).then((res) => {     
-      console.log('sent'); 
-      this.presentToast()
-    })
+    const emailInput = this.ionicForm.value.email;
+    this.authService.getProfile().then(user => {
+      if(emailInput === user?.email){
+        this.authService.resetPassword(emailInput).then(() => {
+          // Password reset email sent
+          this.presentToast(true);
+          console.log('Password reset email sent');
+        }).catch(error => {
+          // Handle error
+          this.presentToast(false);
+          console.error('Error sending password reset email', error);
+        });
+      } else {
+        this.presentToast(false);
+      }
+      //console.log(user?.email);
+    }).catch(error => {
+      this.presentToast(false);
+      console.error('Error getting user profile:', error);
+    });
 
   }
   async presentToast(send: boolean = true) {
@@ -70,8 +86,8 @@ export class ResetPasswordPage implements OnInit {
 
       const toast = await this.toastController.create({
         message: message,
-        duration: 2000, 
-        position: 'bottom' 
+        duration: 5000, 
+        position: 'top' 
       });
     
       toast.present();
@@ -83,8 +99,8 @@ export class ResetPasswordPage implements OnInit {
 
       const toast = await this.toastController.create({
         message: message,
-        duration: 2000, 
-        position: 'bottom' 
+        duration: 5000, 
+        position: 'top' 
       });
     
       toast.present();
