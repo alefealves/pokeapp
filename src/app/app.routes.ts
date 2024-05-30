@@ -9,7 +9,7 @@ export const routes: Routes = [
   },
   {
     path: 'details/:id',
-    loadComponent: () => import('./pages/tabs/details/details.page').then( m => m.DetailsPage)
+    loadComponent: () => import('./pages/tabs/details/details.page').then( m => m.DetailsPage),canActivate: [AuthGuardService]
   },
   {
     path: 'tabs',
@@ -22,5 +22,13 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./auth/login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'signup',
+    loadComponent: () => import('./auth/signup/signup.page').then( m => m.SignupPage)
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () => import('./auth/reset-password/reset-password.page').then( m => m.ResetPasswordPage)
   },
 ];
