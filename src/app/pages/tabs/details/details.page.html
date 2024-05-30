@@ -21,7 +21,63 @@
       </ion-card-content>
     </ion-card>
 
-    
+    <ion-card>
+      <ion-card-header class="card__info">
+        <ion-card-title>About</ion-card-title>
+        <ion-card-subtitle>Height: {{ pokemon.height }}</ion-card-subtitle>
+        <ion-card-subtitle>Weight: {{ pokemon.weight }}</ion-card-subtitle>
+        <ion-card-subtitle>Abilities: {{getAbilities()}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header class="card__info">
+        <ion-card-title>Base Stats</ion-card-title>
+
+        <ion-card-subtitle class="card__basestats">
+          <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" 
+                [style.width]="getStatByName('hp') + '%'">
+            HP: {{getStatByName('hp')}}
+          </span>
+        </ion-card-subtitle>
+
+        <ion-card-subtitle class="card__basestats">
+          <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" 
+                [style.width]="getStatByName('attack') + '%'">
+            Attack: {{ getStatByName('attack') }}
+          </span>
+        </ion-card-subtitle>
+        
+        <ion-card-subtitle class="card__basestats">
+          <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" 
+                [style.width]="getStatByName('defense') + '%'">
+            Defense: {{ getStatByName('defense') }}
+          </span>
+        </ion-card-subtitle>
+
+        <ion-card-subtitle class="card__basestats">
+          <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" 
+                [style.width]="getStatByName('special-attack') + '%'">
+            Sp. Attack: {{ getStatByName('special-attack') }}
+          </span>
+        </ion-card-subtitle>
+
+        <ion-card-subtitle class="card__basestats">
+          <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" 
+                [style.width]="getStatByName('special-defense') + '%'">
+            Sp. Defense: {{ getStatByName('special-defense') }}
+          </span>
+        </ion-card-subtitle>
+
+        <ion-card-subtitle class="card__basestats">
+          <span class="color-white {{'bg-color-' + getPrincipalType(pokemon.types)}}" 
+                [style.width]="getStatByName('speed') + '%'">
+            Speed: {{ getStatByName('speed') }}
+          </span>
+        </ion-card-subtitle>
+
+      </ion-card-header>
+    </ion-card>
     
   } 
 </ion-content>

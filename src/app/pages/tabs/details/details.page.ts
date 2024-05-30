@@ -116,5 +116,19 @@ export class DetailsPage implements OnInit {
     await alert.present();
   }
 
+  getAbilities(): string {
+    const pokemon = this.pokemon();
+    if (pokemon) {
+      return pokemon.abilities.map(ability => ability.ability.name).join(', ');
+    }
+    return '';
+  }
 
+  getStatByName(name: string) {
+    const pokemon = this.pokemon();
+    if (pokemon) {
+      return pokemon.stats.filter(x => x.stat.name === name)[0]?.base_stat;
+    }
+    return 0;
+  }
 }
