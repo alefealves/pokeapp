@@ -1,0 +1,77 @@
+.input{
+    font-weight: 300;
+    color: black;
+}
+ion-item {
+    --background: #f1f1f1;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    ion-input{
+        font-size: 0.9em;
+        color: black;
+        font-weight: 400;
+    }
+    ion-icon{
+        color: gray;
+    }
+}
+.header{
+    margin-top: 100px;
+    margin-bottom: 80px;
+    text-align: center;
+
+    .subtitle{
+        color: gray;
+        font-size: 0.9rem;
+    }
+    .title{
+        font-size: 2rem;
+    }
+}
+.signupLink{
+    display: flex;
+    //margin: auto;
+    //flex-direction: row;
+    //align-content: center;
+    justify-content: flex-start;
+    //position: absolute;
+    //left: 0;
+    //right: 0;
+    //bottom: 2;
+    //width: 80%;
+    margin-top: -15px;
+    .p{
+        font-size: 0.9em;
+    }
+    a {
+        text-decoration: none;
+      }
+}
+.forgotpassword{
+    display: flex;
+    justify-content: flex-end;
+    a {
+    font-weight: 400;
+    font-size: 0.8em;
+        text-decoration: none;
+      }
+}
+.errorInput{
+    color: white;
+    font-weight: 400;
+    font-size: small;
+    padding-top: -16px; 
+}
+
+.button__login{
+    display: flex;
+    justify-content: center;
+    border-radius: 40%;
+    margin-top: 10px;
+    ion-button {
+        font-size: 1.2rem;
+      --background: #ffcc00;
+      --background-activated: #ffaa00;
+      --background-focused: #ffbb00;
+    }
+}
