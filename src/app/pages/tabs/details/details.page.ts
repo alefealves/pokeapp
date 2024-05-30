@@ -5,7 +5,7 @@ import { PokemonService } from 'src/app/core/services/pokemon.service';
 import { AlertController } from '@ionic/angular';
 import { PokemonDetail } from 'src/app/core/models/pokemon.detail';
 import { addIcons } from 'ionicons';
-import { heart, heartOutline } from 'ionicons/icons';
+import { heart, heartOutline, playCircleOutline } from 'ionicons/icons';
 import { 
   IonBackButton,
   IonButtons,
@@ -58,6 +58,7 @@ export class DetailsPage implements OnInit {
   private pokemonService = inject(PokemonService);
   private alertController = inject(AlertController);
   public pokemon: WritableSignal<PokemonDetail | null> = signal<PokemonDetail | null>(null);
+  audio!: HTMLAudioElement;
 
   constructor() { }
 
@@ -65,7 +66,7 @@ export class DetailsPage implements OnInit {
     addIcons({
       heart,
       heartOutline,
-      
+      playCircleOutline
     })
   }
 
@@ -130,5 +131,10 @@ export class DetailsPage implements OnInit {
       return pokemon.stats.filter(x => x.stat.name === name)[0]?.base_stat;
     }
     return 0;
+  }
+
+  playCry(crie: string) {
+    this.audio = new Audio(crie);
+    this.audio.play();
   }
 }

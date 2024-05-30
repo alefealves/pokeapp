@@ -78,6 +78,23 @@
 
       </ion-card-header>
     </ion-card>
+
+    <ion-card>
+      <ion-card-header class="card__info">
+        <ion-card-title>Cries</ion-card-title>
+
+        <ion-card-subtitle class="card__cries">
+          <p>Crie Legacy</p>
+          <ion-icon class="play-icon" name="play-circle-outline" (click)="playCry(pokemon.cries.legacy)"></ion-icon>
+        </ion-card-subtitle>
+
+        <ion-card-subtitle class="card__cries">
+          <p>Crie Latest</p>
+          <ion-icon class="play-icon" name="play-circle-outline" (click)="playCry(pokemon.cries.latest)"></ion-icon>
+        </ion-card-subtitle>
+
+      </ion-card-header>
+    </ion-card>
     
   } 
 </ion-content>
