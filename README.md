@@ -58,7 +58,11 @@ ng serve
 
 9. **Sem Favoritos**: Tela quando esta sem nenhum favorito marcado.
 
-![Lista de Favoritos](screenshots/tela_favorites_vazio.png)
+![Sem Favoritos](screenshots/tela_favorites_vazio.png)
+
+9. **Menu Lateral**: Menu lateral contendo informacões do usuários logado e atalhos
+
+![Menu Lateral](screenshots/tela_menu.png)
 
 ## Estrutura do Projeto
 
