@@ -75,43 +75,43 @@ export class SignupPage implements OnInit {
   get errorControl() {
     return this.ionicForm.controls;
   }
-  // async signUpWithGoogle(){
-  //   const loading = await this.loadingController.create();
-  //   // await loading.present();
-
-  //   const user = await this.authService.GoogleAuth().then((re)=>{
-  //     console.log(re);
-      
-  //     // this.router.navigate(['/home'])
-  //   })
-  // }
  
   async signUP(){
     const loading = await this.loadingController.create();
     await loading.present();
     if (this.ionicForm.valid) {
 
-      const user = await this.authService.registerUser(this.ionicForm.value.email, this.ionicForm.value.password).catch((err) => {
-        this.presentToast(err)
-        console.log(err);
+      this.authService.RegisterUser(this.ionicForm.value.email, this.ionicForm.value.password)
+      .then((res) => {
+        
+        this.authService.SendVerificationMail().then(() => {
+          loading.dismiss();
+          this.presentToast('Por favor, verifique seu email para confirmar o cadastro!');
+          this.router.navigate(['/login']);
+        }).catch((error) => {
+          console.log(error);
+          loading.dismiss();
+          this.presentToast('Erro ao enviar o email de verificação, verifique se o email é válido.');
+        })
+
+      }).catch((error) => {
+
+        console.log(error);
         loading.dismiss();
+        this.presentToast('Erro ao cadastrar usuário verifique se o email é válido.');
       })
 
-      if (user) {
-        loading.dismiss();
-        this.router.navigate(['/login'])
-      }
     } else {
       return console.log('Favor, informe dados válidos!');
     }
   }
   
-  async presentToast(message: undefined) {
+  async presentToast(message: string) {
     console.log(message);
     
     const toast = await this.toastController.create({
       message: message,
-      duration: 3000,
+      duration: 5000,
       position: 'top',
     });
 

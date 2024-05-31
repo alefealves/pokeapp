@@ -61,12 +61,12 @@ export class ResetPasswordPage implements OnInit {
     const emailInput = this.ionicForm.value.email;
     this.authService.getProfile().then(user => {
       if(emailInput === user?.email){
-        this.authService.resetPassword(emailInput).then(() => {
-          // Password reset email sent
+        this.authService.PasswordRecover(emailInput).then(() => {
+         
           this.presentToast(true);
           console.log('Password reset email sent');
         }).catch(error => {
-          // Handle error
+          
           this.presentToast(false);
           console.error('Error sending password reset email', error);
         });
