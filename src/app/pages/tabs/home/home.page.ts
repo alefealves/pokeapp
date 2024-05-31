@@ -8,6 +8,8 @@ import { heart, heartOutline } from 'ionicons/icons';
 import { catchError, finalize } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthfirebaseService } from '../../../core/services/authfirebase.service';
+import { MenuController } from '@ionic/angular';
 import { 
   IonHeader,
   IonTitle,
@@ -69,10 +71,11 @@ import {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],  
 })
 export class HomePage implements OnInit {
-
+  private authService = inject(AuthfirebaseService);
   private router = inject(Router);
   private pokemonService = inject(PokemonService);
   private alertController = inject(AlertController);
+  private menuCtrl = inject(MenuController);
 
   search = new FormControl('');
   public pokemonsList: Pokemon[] = [];
@@ -97,6 +100,14 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.authService.getProfile().then(user => {
+      this.email = user?.email;
+      console.log(user);
+    }).catch(error => {
+      console.error('Error getting user profile:', error);
+    });
+
     this.loadPokemons();
     this.loadAllPokemons();
   }
@@ -239,7 +250,7 @@ export class HomePage implements OnInit {
         }, {
           text: 'Confirm',
           handler: () => {
-            //this.logout();
+            this.logout();
             console.log('Confirm Okay');
           }
         }
@@ -247,6 +258,17 @@ export class HomePage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async logout(){
+    this.authService.SignOut().then(() =>{
+      this.router.navigate(['/landing'])
+    }).catch(err => console.log(err));
+  }
+
+  async navigateTo(route: string) {
+    await this.menuCtrl.close();
+    this.router.navigate([route]);
   }
   
 }

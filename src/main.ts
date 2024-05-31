@@ -10,6 +10,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+//import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+//import { getStorage, provideStorage } from '@angular/fire/storage';
 
 if (environment.production) {
   enableProdMode();

@@ -1,74 +1,133 @@
-import { Injectable, inject } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Injectable, NgZone } from '@angular/core';
+//import * as auth from 'firebase/auth';
 import { User } from 'firebase/auth';
-import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+/*import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';*/
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthfirebaseService {
 
-  private ngFireAuth = inject(AngularFireAuth);
-  private authState = new BehaviorSubject<User | null>(null);
-  isLoggedIn: boolean = false;
+  userData: any;
 
-  constructor() {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      //this.authState.next(JSON.parse(storedUser));
-    }
-
-    this.getProfile().then(user => {
-      this.authState.next(user);
+  constructor(
+    //public afStore: AngularFirestore,
+    public ngFireAuth: AngularFireAuth,
+    public router: Router,
+    //public ngZone: NgZone
+  ) {
+    this.ngFireAuth.authState.subscribe((user) => {
       if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.isLoggedIn = true;
-      } else {
-        localStorage.removeItem('user');
-        this.isLoggedIn = false;
-      }
-    }).catch(error => {
-      console.error('Erro ao buscar o perfil:', error);
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        //JSON.parse(localStorage.getItem('user') || '{}');
+      } 
+      /*else {
+        localStorage.setItem('user', null || '{}');
+        JSON.parse(localStorage.getItem('user') || '{}');
+      }*/
     });
   }
 
-  isAuthenticated(): boolean {
-    return this.isLoggedIn;
+
+  async SignIn(email: any, password: any) {
+    return this.ngFireAuth.signInWithEmailAndPassword(email, password).then((user) => {
+
+      this.ngFireAuth.authState.subscribe((user) => {
+        if (user) {
+          this.userData = user;
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          //JSON.parse(localStorage.getItem('user') || '{}');
+        } 
+        /*else {
+          localStorage.setItem('user', null || '{}');
+          JSON.parse(localStorage.getItem('user') || '{}');
+        }*/
+      })
+    })
+  }
+  
+  async RegisterUser(email: any, password: any) {
+    return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  async registerUser(email: string, password: string) {
-    return await this.ngFireAuth.createUserWithEmailAndPassword(email, password)
+  async SendVerificationMail() {
+    return this.ngFireAuth.currentUser.then((user: any) => {
+      return user.sendEmailVerification();
+    });
   }
 
- 
+  async PasswordRecover(passwordResetEmail: any) {
+    return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail);
+  }
 
-  async loginUser(email: string, password: string) {
-    const user = await this.ngFireAuth.signInWithEmailAndPassword(email, password);
-    if (user) {
-      this.isLoggedIn = true;
+  
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user.emailVerified) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  
+  get isEmailVerified(): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.emailVerified !== false ? true : false;
+  }
+
+  async SignOut() {
+    return this.ngFireAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+    });
+  }
+
+  async getProfile(): Promise<any> {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user) {  
       return user;
     }
     return null;
   }
 
-  async resetPassword(email: string) {
-    return await this.ngFireAuth.sendPasswordResetEmail(email);
+  /*
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
   }
 
-  async getProfile():Promise <User | null> {
-    return new Promise<User | null>((resolve, reject) => {
-      this.ngFireAuth.onAuthStateChanged(user => {
-        if (user) {
-          resolve(user as User);
-        } else {
-          resolve(null);
-        }
-      }, reject);
-    })
+  AuthLogin(provider: any) {
+    return this.ngFireAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        this.ngZone.run(() => {
+          this.router.navigate(['dashboard']);
+        });
+        this.SetUserData(result.user);
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
   }
-
-  async logout(): Promise<void> {
-    this.isLoggedIn = false;
-    return await this.ngFireAuth.signOut();
-  }
+  
+  async SetUserData(user: any) {
+    const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
+      `users/${user.uid}`
+    );
+    const userData: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      emailVerified: user.emailVerified,
+    };
+    return userRef.set(userData, {
+      merge: true,
+    });
+  }*/
+  
 }

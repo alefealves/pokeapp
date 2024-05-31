@@ -56,7 +56,6 @@ export class LoginPage implements OnInit {
       lockClosedOutline, 
       personOutline,
     });
-    
   }
 
   ngOnInit() {
@@ -80,23 +79,34 @@ export class LoginPage implements OnInit {
   async login() {
     const loading = await this.loadingController.create();
     await loading.present();
-    //console.log(this.ionicForm.value.email + this.ionicForm.value.password);
+   
     if (this.ionicForm.valid) {
 
-      //  await  loading.dismiss();
-      //console.log(this.ionicForm.value.email);
-      const user = await this.authService.loginUser(this.ionicForm.value.email, this.ionicForm.value.password).catch((err) => {
-        this.presentToast("Credencias inválidas, tente novamente.");
-        console.log(err);
-        loading.dismiss();
-      })
+      this.authService
+      .SignIn(this.ionicForm.value.email, this.ionicForm.value.password)
+      .then((): any => {
+        if (this.authService.isEmailVerified) {
+          
+          //console.log(this.authService.isEmailVerified);
+          loading.dismiss();
+          this.presentToast('Logado com sucesso!');
+          this.router.navigate(['/tabs/home']);
+        } else {
 
-      if (user) {
+          //console.log(this.authService.isEmailVerified);  
+          this.presentToast('Email ainda não foi verificado');
+          loading.dismiss();
+        }
+      })
+      .catch((error) => {
+        
         loading.dismiss();
-        this.router.navigate(
-          ['/tabs/home'],)
-      }
+        this.presentToast('Erro ao logar, verifique seus dados!');
+        return console.log(error);
+      });
+
     } else {
+      this.presentToast('Favor, informe dados validos!');
       return console.log('Favor, informe dados validos!');
     }
 
@@ -111,7 +121,7 @@ export class LoginPage implements OnInit {
 
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000,
+      duration: 3000,
       position: 'top',
     });
 
