@@ -60,7 +60,7 @@ ng serve
 
 ![Sem Favoritos](screenshots/tela_favorites_vazio.png)
 
-9. **Menu Lateral**: Menu lateral contendo informacões do usuários logado e atalhos
+10. **Menu Lateral**: Menu lateral contendo informacões do usuários logado e atalhos
 
 ![Menu Lateral](screenshots/tela_menu.png)
 
