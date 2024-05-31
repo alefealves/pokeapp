@@ -26,7 +26,7 @@ ng serve
 
 1. **Tela Inicial**: Primeira tela ao iniciar do pokeApp
 
-![Tela Inicial](screenshots/tela_home.png)
+![Tela Inicial](screenshots/tela_inicial.png)
 
 2. **Tela Login**: Tela de login do pokeApp
 
