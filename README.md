@@ -1,6 +1,6 @@
 # PokeApp
 
-Este é um projeto desenvolvido em Ionic 7 e Angular 17 que consome a API do Pokémon ([https://pokeapi.co/](https://pokeapi.co/)). O objetivo deste projeto é a visualizacão da lista de pokémons, os detalhes de cada e favoritá-los.
+Este é um projeto desenvolvido em Ionic 7 e Angular 17 que consome a API do Pokémon ([https://pokeapi.co/](https://pokeapi.co/)) e Firebase para autenticacao de usuario. O objetivo deste projeto é a visualizacão da lista de pokémons, os detalhes de cada e favoritá-los.
 
 ## Ambiente de Desenvolvimento
 
