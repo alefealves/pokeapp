@@ -56,6 +56,10 @@ ng serve
 
 ![Confirma Favorito](screenshots/confirm_favorite.png)
 
+9. **Sem Favoritos**: Tela quando esta sem nenhum favorito marcado.
+
+![Lista de Favoritos](screenshots/tela_favorites_vazio.png)
+
 ## Estrutura do Projeto
 
 O projeto tem a seguinte estrutura:
