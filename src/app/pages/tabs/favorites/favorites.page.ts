@@ -90,18 +90,22 @@ export class FavoritesPage implements OnInit {
    }
 
   ngOnInit() {
-  
-    this.authService.getProfile().then(user => {
-      this.email = user?.email;
-      console.log(user);
-    }).catch(error => {
-      console.error('Error getting user profile:', error);
-    });
+    this.loadFavorites();
+  }
 
+  ionViewWillEnter() {
     this.loadFavorites();
   }
 
   async loadFavorites() {
+
+    this.authService.getProfile().then(user => {
+      this.email = user?.email;
+      //console.log(user);
+    }).catch(error => {
+      console.error('Error getting user profile:', error);
+    });
+
     this.isLoading = true;
     this.isFavoritesPokemons = false;
     this.pokemonsFavorites = this.pokemonService.getFavorites();

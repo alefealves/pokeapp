@@ -2,6 +2,8 @@ import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
+import { defineCustomElements } from '@ionic/core/loader';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
@@ -17,6 +19,7 @@ if (environment.production) {
   enableProdMode();
 }
 
+platformBrowserDynamic();
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -30,3 +33,5 @@ bootstrapApplication(AppComponent, {
     //provideStorage(() => getStorage())
   ],
 });
+
+defineCustomElements(window);

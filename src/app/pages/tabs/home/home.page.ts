@@ -103,7 +103,7 @@ export class HomePage implements OnInit {
 
     this.authService.getProfile().then(user => {
       this.email = user?.email;
-      console.log(user);
+      //console.log(user);
     }).catch(error => {
       console.error('Error getting user profile:', error);
     });
