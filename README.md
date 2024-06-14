@@ -21,6 +21,9 @@ ng serve
 ```
 
 5. O App estará disponível em `http://localhost:4200/` por padrão. URL acessável em qualquer navegador, mais o recomendado é o Google Chrome.
+   Usuário padrão do app é:
+    Email: testepokeapp@outlook.com
+    Senha: 123456
 
 ## Funcionalidades
 
